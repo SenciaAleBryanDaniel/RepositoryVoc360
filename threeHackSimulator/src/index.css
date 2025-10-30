@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base tweaks for full-height layout */
+html, body, #root {
+  height: 100%;
+}
+
+/* Optional container width normalization similar to Tailwind's container */
+@layer components {
+  /* Background image helper for the whole app/page */
+  .app-bg {
+    background-image: url('/bg.jpg'); /* coloca tu imagen en /public/bg.jpg */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* leve overlay para contraste del contenido */
+    position: relative;
+  }
+  .app-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(245, 246, 252, 0.6), rgba(245, 246, 252, 0.85));
+    pointer-events: none;
+  }
+  .app-bg > * {
+    position: relative;
+    z-index: 1;
+  }
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  @screen sm { .container { max-width: 640px; } }
+  @screen md { .container { max-width: 768px; } }
+  @screen lg { .container { max-width: 1024px; } }
+  @screen xl { .container { max-width: 1280px; } }
+  @screen 2xl { .container { max-width: 1536px; } }
+}

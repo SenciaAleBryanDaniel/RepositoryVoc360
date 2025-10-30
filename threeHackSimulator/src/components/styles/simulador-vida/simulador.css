@@ -1,0 +1,558 @@
+/* ========================================
+   ESTILOS DEL SIMULADOR DE VIDA ADULTA
+   ======================================== */
+
+:root {
+  /* Colores primarios */
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #ec4899;
+  --accent: #14b8a6;
+  
+  /* Parámetros del avatar */
+  --salud-fisica: #10b981;
+  --salud-mental: #8b5cf6;
+  --satisfaccion: #f59e0b;
+  --estres: #ef4444;
+  --conocimiento: #3b82f6;
+  --relaciones: #ec4899;
+  --economia: #14b8a6;
+  --meta: #6366f1;
+  
+  /* Fondos */
+  --bg-dark: #1e293b;
+  --bg-darker: #0f172a;
+  --bg-card: #ffffff;
+  --bg-hover: #f1f5f9;
+  
+  /* Textos */
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-light: #94a3b8;
+  --text-white: #ffffff;
+  
+  /* Estados */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* ============ BASE ============ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============ CONTENEDORES ============ */
+
+.simulador-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+  padding: 2rem;
+}
+
+.simulador-card {
+  background: var(--bg-card);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-xl);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============ TÍTULOS ============ */
+
+.simulador-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-white);
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.simulador-subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* ============ BARRAS DE PARÁMETROS ============ */
+
+.parameter-container {
+  margin-bottom: 1.5rem;
+}
+
+.parameter-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.parameter-emoji {
+  font-size: 1.5rem;
+}
+
+.parameter-bar-wrapper {
+  position: relative;
+  width: 100%;
+  height: 2rem;
+  background: #e5e7eb;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.parameter-bar {
+  height: 100%;
+  border-radius: 1rem;
+  transition: width 0.8s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.parameter-bar.salud-fisica { background: var(--salud-fisica); }
+.parameter-bar.salud-mental { background: var(--salud-mental); }
+.parameter-bar.satisfaccion { background: var(--satisfaccion); }
+.parameter-bar.estres { background: var(--estres); }
+.parameter-bar.conocimiento { background: var(--conocimiento); }
+.parameter-bar.relaciones { background: var(--relaciones); }
+.parameter-bar.economia { background: var(--economia); }
+.parameter-bar.meta { background: var(--meta); }
+
+/* ============ NIVEL ECONÓMICO (ESPECIAL) ============ */
+
+.nivel-economico-container {
+  margin-bottom: 2rem;
+}
+
+.nivel-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.nivel-dot {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nivel-dot.active {
+  background: var(--economia);
+  transform: scale(1.1);
+}
+
+.nivel-dot.active:hover {
+  transform: scale(1.2);
+}
+
+/* ============ TARJETAS DE DECISIÓN ============ */
+
+.decision-card {
+  background: var(--bg-card);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 2rem;
+}
+
+.decision-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.decision-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+}
+
+.decision-question {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* ============ OPCIONES DE DECISIÓN ============ */
+
+.decision-options {
+  display: grid;
+  gap: 1rem;
+}
+
+.decision-option {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.decision-option:hover {
+  border-color: var(--primary);
+  transform: translateX(5px);
+  box-shadow: var(--shadow-md);
+}
+
+.decision-option.selected {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+}
+
+.option-emoji {
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.option-content {
+  flex: 1;
+}
+
+.option-text {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.option-impact {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ============ TEMPORIZADOR ============ */
+
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.timer-icon {
+  font-size: 2rem;
+}
+
+.timer-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.timer-warning {
+  background: linear-gradient(135deg, var(--warning) 0%, var(--danger) 100%);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+/* ============ FICHAS EDUCATIVAS ============ */
+
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.learning-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.learning-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary);
+}
+
+.learning-card.completed {
+  border-color: var(--success);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.1) 100%);
+}
+
+.learning-card.skipped {
+  border-color: var(--warning);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(245, 158, 11, 0.1) 100%);
+}
+
+.learning-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.learning-emoji {
+  font-size: 3rem;
+}
+
+.learning-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.learning-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: #f3f4f6;
+}
+
+.learning-status.completed {
+  background: var(--success);
+  color: white;
+}
+
+.learning-status.skipped {
+  background: var(--warning);
+  color: white;
+}
+
+/* ============ BOTONES ============ */
+
+.btn {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+.btn-success {
+  background: var(--success);
+  color: white;
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-large {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.25rem;
+}
+
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ============ PROGRESO SEMANAL ============ */
+
+.week-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.week-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.week-dot.completed {
+  background: var(--success);
+}
+
+.week-dot.current {
+  background: var(--primary);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* ============ BADGES ============ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--success);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--warning);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--danger);
+}
+
+.badge-info {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--info);
+}
+
+/* ============ QUIZ ============ */
+
+.quiz-container {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+.quiz-option {
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.quiz-option:hover {
+  border-color: var(--primary);
+  background: white;
+}
+
+.quiz-option.correct {
+  border-color: var(--success);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.quiz-option.incorrect {
+  border-color: var(--danger);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* ============ RESPONSIVE ============ */
+
+@media (max-width: 768px) {
+  .simulador-title {
+    font-size: 2rem;
+  }
+  
+  .simulador-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .simulador-card {
+    padding: 1.5rem;
+  }
+  
+  .learning-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .decision-option {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .simulador-container {
+    padding: 1rem;
+  }
+  
+  .simulador-title {
+    font-size: 1.75rem;
+  }
+  
+  .btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
